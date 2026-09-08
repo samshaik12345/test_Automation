@@ -1,16 +1,25 @@
+// DEMO NOTE: Playwright's own test runner does NOT require a tsconfig.json
+// at all — it compiles TypeScript on the fly. This file exists purely for
+// `npm run typecheck` (tsc --noEmit) and for eslint.config.js's type-aware
+// linting (project: true). TypeScript's own config loader supports
+// comments like this one, even though this is a .json file — that's why
+// this works here but would NOT work in flows.json or package.json, which
+// are read with plain JSON.parse elsewhere in this repo.
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "lib": ["ES2022", "DOM"],
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "types": ["node", "@playwright/test"]
+    "target": "ES2022",              // matches Node's modern feature support
+    "module": "commonjs",            // matches how ts-node runs scripts/validate-flows.ts
+    "lib": ["ES2022", "DOM"],        // "DOM" is needed because Playwright test code references browser types
+    "strict": true,                  // the TypeScript strictness baseline the framework enforces (blueprint section 46)
+    "noUncheckedIndexedAccess": true, // array/object index access returns `T | undefined`, catching more real bugs
+    "noImplicitOverride": true,      // forces an explicit `override` keyword — helps if a BasePage/BaseComponent is ever introduced
+    "esModuleInterop": true,         // lets `import x from 'y'`-style imports work cleanly against CommonJS packages
+    "skipLibCheck": true,            // skips type-checking inside node_modules — faster, and not our code to fix anyway
+    "forceConsistentCasingInFileNames": true, // avoids import-path bugs that only surface on case-sensitive CI runners
+    "resolveJsonModule": true,       // allows scripts to `import` a .json file directly if ever needed
+    "types": ["node", "@playwright/test"] // limits ambient globals to just these two packages' types
   },
+  // These match .gitignore's native entries — no point type-checking
+  // generated output.
   "exclude": ["node_modules", "test-results", "playwright-report"]
 }

@@ -1,3 +1,8 @@
+# DEMO NOTE: this is the FRAMEWORK's CI workflow — added on top of
+# Playwright's own native .github/workflows/playwright.yml (which stays
+# unmodified). This is the "AI never touches CI" boundary made concrete:
+# every step below is deterministic tooling, nothing here calls Copilot or
+# any LLM (blueprint sections 3, 46, 57).
 name: PR Validation
 
 on:
@@ -15,24 +20,42 @@ jobs:
           node-version: 20
           cache: npm
 
+      # Requires package-lock.json to exist and match package.json exactly
+      # — unlike `npm install`, `npm ci` fails if they're out of sync,
+      # which is exactly the guarantee CI wants.
       - name: Install dependencies
         run: npm ci
 
+      # tsc --noEmit — TypeScript strict-mode check, no arbitrary waits or
+      # floating promises get past this if eslint didn't already catch them.
       - name: Type check
         run: npm run typecheck
 
+      # Runs eslint.config.js's rules, including the Playwright-specific
+      # ones (no-wait-for-timeout, no-floating-promises).
       - name: Lint
         run: npm run lint
 
+      # Runs scripts/validate-flows.ts — fails the PR if flows.json has a
+      # duplicate id, a missing owner, or a malformed tag.
       - name: Validate flow registry
         run: npm run validate:flows
 
+      # Only chromium, not all 3 browsers — this lane is meant to be fast
+      # (blueprint section 56's "primary browser gets broad PR coverage,
+      # others are risk-based" model). Full cross-browser runs belong in a
+      # scheduled/regression lane, not every PR.
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      # Only tests tagged @smoke run here — see tests/ui/manage-todos.spec.ts's
+      # tag array and flows.json's coveragePolicy for how a test earns this.
       - name: Run smoke tests
         run: npx playwright test --project=chromium --grep @smoke
 
+      # Evidence policy in action (blueprint section 50): the HTML report
+      # (with traces/screenshots) is only uploaded when something actually
+      # failed — not for every green run.
       - name: Upload report on failure
         if: failure()
         uses: actions/upload-artifact@v4

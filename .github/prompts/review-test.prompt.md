@@ -4,6 +4,14 @@ argument-hint: path to the spec file to review, e.g. tests/ui/manage-todos.spec.
 agent: framework-reviewer
 ---
 
+<!--
+  DEMO NOTE: type "/review-test <path>" in Copilot Chat (agent mode) to
+  invoke this. The `agent:` field routes it to .github/agents/
+  framework-reviewer.agent.md, which is deliberately READ-ONLY — it has no
+  'edit' tool, so this is safe to run against anything without risk of an
+  unwanted change. Good first thing to demo since there's nothing to undo.
+-->
+
 Review `${input}` against `.github/copilot-instructions.md` and the
 `.github/instructions/*.instructions.md` file(s) that apply to it. Do not
 edit the file — this is read-only review.

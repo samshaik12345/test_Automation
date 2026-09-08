@@ -1,5 +1,14 @@
 {
   "description": "Provenance manifest for .github/skills/**. CI should fail if a skill file's content hash changes without a matching update here in the same PR (blueprint section 61).",
+  "_demoNote": "This manifest is what makes the 'community Skills are curated, not auto-trusted' policy (blueprint section 61) enforceable instead of just a written rule. NOTE: the actual CI hash-check this file enables is NOT yet wired up in this scaffold's pr-validation.yml — this file exists so that check has something to read once someone adds it. Not JSONC (no // comments) since this is plain JSON — use '_'-prefixed keys like this one for notes instead.",
+  "_fieldNotes": {
+    "path": "Path to the Skill file this entry tracks.",
+    "source": "'internal' if organization-authored, otherwise the name of the external project it was curated from.",
+    "upstreamReferences": "Links reviewed while writing/curating this Skill.",
+    "reviewedBy": "Who approved this Skill's content — replace the placeholder before treating this as a real audit trail.",
+    "reviewDate": "When it was last reviewed against upstream sources.",
+    "playwrightVersionReviewedAgainst": "Pin this to whatever Playwright version was current at review time, so drift is easy to spot later."
+  },
   "skills": [
     {
       "path": ".github/skills/playwright-best-practices/SKILL.md",

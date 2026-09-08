@@ -4,6 +4,15 @@ argument-hint: path to the failing spec, or to a trace.zip / test-results folder
 agent: failure-analyst
 ---
 
+<!--
+  DEMO NOTE: type "/analyze-failure <path>" in Copilot Chat (agent mode).
+  Routes to .github/agents/failure-analyst.agent.md, which reads existing
+  evidence (trace, report, console/network output) only — it never
+  re-runs the test or opens a live browser itself, which is the same
+  "AI reasons over static files, never drives a live browser" boundary
+  the whole framework is built around (blueprint section 3).
+-->
+
 Diagnose the failure related to `${input}` using only evidence that already
 exists (trace, HTML report, console/network/page-error output, the test
 source). Do not re-run the test yourself and do not open a live browser to

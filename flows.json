@@ -1,4 +1,15 @@
 {
+  "_readme": "This is the flow registry (blueprint section 9) — the single place a business flow is 'declared' before any test is allowed to claim it. scripts/validate-flows.ts parses this file with plain JSON.parse (no // comments allowed inside 'flows' itself, hence this separate notes block) and fails the build if an id is duplicated, an owner is missing, or a tag doesn't start with '@flow:'.",
+  "_fieldNotes": {
+    "id": "Unique id across the whole registry, convention is '<app>.<flow-name>'. Used only inside this file and validate-flows.ts for duplicate detection.",
+    "name": "Human-readable name — should match the tag below without the '@flow:' prefix.",
+    "tag": "Must exactly match the @flow: tag used in the tag array of the corresponding test file (see tests/ui/manage-todos.spec.ts).",
+    "owner": "Placeholder in this scaffold — replace with the real team or person accountable for this flow before using it for real work.",
+    "status": "'active' | 'deprecated'. Deprecated flows should not gain new tests (blueprint section 9).",
+    "criticality": "'tier-1' = must always pass in CI; 'tier-2' = smoke-covered but less strict (blueprint section 9).",
+    "entryPoint": "Where in the application this flow starts (a route/URL path).",
+    "coveragePolicy": "Which CI lanes (see .github/workflows/pr-validation.yml) are expected to exercise this flow — e.g. ['smoke'], ['smoke','regression']."
+  },
   "app": "sample-app",
   "flows": [
     {

@@ -4,6 +4,18 @@ argument-hint: path to the raw recording, e.g. _recordings/checkout.raw.ts
 agent: recording-normalizer
 ---
 
+<!--
+  DEMO NOTE: this is a "prompt file". Type "/normalize-recording" in
+  Copilot Chat (agent mode) and VS Code offers it in the slash-command
+  autocomplete, reading it from this file's path under .github/prompts/.
+  The `agent:` field above routes the request to .github/agents/
+  recording-normalizer.agent.md instead of the default chat agent —
+  that's what gives it read/search/edit tool access and the ground rules
+  defined there. Everything below this comment is the actual instruction
+  text sent to that agent, with `${input}` replaced by whatever you typed
+  after the command.
+-->
+
 Normalize the raw recording at `${input}` into production-ready framework
 code. Follow this order exactly (blueprint section 39):
 
