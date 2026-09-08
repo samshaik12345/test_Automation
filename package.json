@@ -1,0 +1,32 @@
+{
+  "name": "enterprise-playwright-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Native Playwright init output, with the enterprise framework layered on top (see docs/Enterprise_Playwright_Copilot_Final_Blueprint.md and docs/VSCode-Copilot-Playwright-Playbook.md).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "record": "playwright codegen https://demo.playwright.dev/todomvc",
+    "pw:validate": "playwright test",
+    "pw:trace": "playwright show-trace",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "validate:flows": "ts-node scripts/validate-flows.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-playwright": "^2.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.6.0"
+  }
+}
