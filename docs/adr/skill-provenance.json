@@ -1,0 +1,15 @@
+{
+  "description": "Provenance manifest for .github/skills/**. CI should fail if a skill file's content hash changes without a matching update here in the same PR (blueprint section 61).",
+  "skills": [
+    {
+      "path": ".github/skills/playwright-best-practices/SKILL.md",
+      "source": "internal",
+      "upstreamReferences": [
+        "https://playwright.dev/docs/best-practices"
+      ],
+      "reviewedBy": "REPLACE_WITH_REVIEWER",
+      "reviewDate": "2026-09-07",
+      "playwrightVersionReviewedAgainst": "1.62.1"
+    }
+  ]
+}
