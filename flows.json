@@ -1,0 +1,15 @@
+{
+  "app": "sample-app",
+  "flows": [
+    {
+      "id": "sample-app.manage-todos",
+      "name": "manage-todos",
+      "tag": "@flow:manage-todos",
+      "owner": "<owning-team>",
+      "status": "active",
+      "criticality": "tier-2",
+      "entryPoint": "/",
+      "coveragePolicy": ["smoke"]
+    }
+  ]
+}
